@@ -3,7 +3,7 @@ import pytest
 from browser_singleton import BrowserSingleton
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='function')
 def browser():
     browser_s = BrowserSingleton()
     browser = browser_s.get_browser()
