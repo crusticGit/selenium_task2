@@ -13,8 +13,7 @@ class TestLoginFromMainPage:
         main_page = MainPage(browser)
         browser.get(link)
         main_page.wait_for_open()
-
-        assert main_page.visibility_of_element_located(main_page.LOGIN_LINK), \
+        assert main_page.is_login_link_visible(), \
             "Login link is not visibility"
 
     def test_guest_can_go_to_login_page_from_main_page(self, browser):
@@ -26,12 +25,7 @@ class TestLoginFromMainPage:
         main_page.go_to_login_page()
 
         login_page = LoginPage(browser)
-        browser.get(browser.current_url)
-
-        assert 'login' in login_page.browser.current_url, \
-            'Url not contain a login'
-        assert login_page.visibility_of_element_located(login_page.LOGIN_FORM), \
-            'Login form is not visibility'
+        login_page.wait_for_open()
 
     @pytest.mark.parametrize("email_domain, length_pass", [
         ("example.com", 10),
@@ -47,7 +41,7 @@ class TestLoginFromMainPage:
         main_page.go_to_login_page()
 
         login_page = LoginPage(browser)
-        browser.get(browser.current_url)
+        login_page.wait_for_open()
 
         actual_error = login_page.attempt_login_with_invalid_credentials(email_domain, length_pass)
         expected_error = "Пожалуйста, проверьте свой пароль и имя аккаунта и попробуйте снова."
@@ -63,14 +57,7 @@ class TestLoginFromMainPage:
         main_page.search_game(game_name)
 
         search_page = SearchPage(browser)
-        browser.get(browser.current_url)
-
-        assert search_page.visibility_of_element_located(search_page.INPUT_SEARCHBAR), \
-            'Search bar is not visibility'
-        assert 'search' in browser.current_url, \
-            'Url not contain a search'
-        assert search_page.visibility_of_element_located(search_page.RESULT_SEARCH), \
-            'Result search is not visibility'
+        search_page.wait_for_open()
 
         search_page.sort_by_price_desc()
 

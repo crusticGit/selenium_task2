@@ -2,6 +2,7 @@ import json
 
 import os
 
+
 class ConfigReader:
     _config = None
 
