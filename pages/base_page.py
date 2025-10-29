@@ -11,11 +11,13 @@ class BasePage:
         self.browser = browser
         self.config = ConfigReader()
         self.timeout = self.config.get_timeout()
+        self.poll_frequency = self.config.get_poll_frequency()
 
-    def wait(self, poll_frequency=0.5, timeout=None):
+    def _wait(self, poll_frequency=None, timeout=None):
         timeout = timeout or self.timeout
+        poll_frequency = poll_frequency or self.poll_frequency
         wait = WebDriverWait(self.browser, timeout, poll_frequency)
         return wait
 
     def wait_for_open(self):
-        self.wait().until(Ec.presence_of_element_located(self.UNIQUE_ELEMENT_LOC))
+        self._wait().until(Ec.presence_of_element_located(self.UNIQUE_ELEMENT_LOC))

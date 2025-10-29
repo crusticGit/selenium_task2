@@ -22,3 +22,8 @@ class ConfigReader:
     def get_timeout(cls):
         cls._load_config()
         return cls._config["timeout"]
+
+    @classmethod
+    def get_poll_frequency(cls):
+        cls._load_config()
+        return cls._config['poll_frequency']

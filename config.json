@@ -1,8 +1,7 @@
 {
   "urls": {
-    "base_url": "https://store.steampowered.com/",
-    "login_url": "https://store.steampowered.com/login/",
-    "search_url": "https://store.steampowered.com/search/"
+    "base_url": "https://store.steampowered.com/"
   },
-  "timeout": 10
+  "timeout": 10,
+  "poll_frequency": 0.5
 }

@@ -12,17 +12,17 @@ class MainPage(BasePage):
     UNIQUE_ELEMENT_LOC = (By.XPATH, '//form[@role="search"]/button')
 
     def search_game(self, game_name):
-        inp_search = self.wait().until(Ec.presence_of_element_located(self.INPUT_SEARCH))
+        inp_search = self._wait().until(Ec.presence_of_element_located(self.INPUT_SEARCH))
         inp_search.send_keys(game_name)
-        search_btn = self.wait().until(Ec.element_to_be_clickable(self.BUTTON_SEARCH))
+        search_btn = self._wait().until(Ec.element_to_be_clickable(self.BUTTON_SEARCH))
         search_btn.click()
 
     def go_to_login_page(self):
-        link = self.wait().until(Ec.presence_of_element_located(self.LOGIN_LINK))
+        link = self._wait().until(Ec.presence_of_element_located(self.LOGIN_LINK))
         link.click()
 
     def is_login_link_visible(self):
         try:
-            return self.wait().until(Ec.presence_of_element_located(self.LOGIN_LINK)) is not None
+            return self._wait().until(Ec.presence_of_element_located(self.LOGIN_LINK))
         except TimeoutException:
             return False
