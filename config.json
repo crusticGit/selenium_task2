@@ -1,0 +1,7 @@
+{
+  "urls": {
+    "base_url": "https://store.steampowered.com/"
+  },
+  "timeout": 10,
+  "poll_frequency": 0.5
+}
