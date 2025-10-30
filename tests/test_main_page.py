@@ -1,4 +1,5 @@
 import pytest
+from faker import Faker
 
 from ConfigReader import ConfigReader
 from pages.login_page import LoginPage
@@ -33,7 +34,7 @@ class TestLoginFromMainPage:
         ("google.com", 40)
     ])
     def test_invalid_login_shows_error_message(self, browser, email_domain, length_pass):
-        link = ConfigReader().get_url('login_url')
+        link = ConfigReader().get_url('base_url')
 
         main_page = MainPage(browser)
         browser.get(link)
@@ -43,7 +44,11 @@ class TestLoginFromMainPage:
         login_page = LoginPage(browser)
         login_page.wait_for_open()
 
-        actual_error = login_page.attempt_login_with_invalid_credentials(email_domain, length_pass)
+        faker = Faker()
+        email = faker.email(domain=email_domain)
+        password = faker.password(length=length_pass, special_chars=True, digits=True)
+
+        actual_error = login_page.attempt_login_with_invalid_credentials(email, password)
         expected_error = "Пожалуйста, проверьте свой пароль и имя аккаунта и попробуйте снова."
         assert actual_error == expected_error, f'Actual result:{actual_error}, expected: {expected_error}'
 
